@@ -1,113 +1,119 @@
 # Swarm-6G Mini Project
 
-A Python-based simulation exploring how communication constraints affect coordination in a simple multi-agent swarm.
+A simulation-based study of **multi-agent coordination under communication constraints**, designed as a foundational step toward research in:
 
-This project is designed as a foundational step toward research in:
-
-**Embodied Intelligence for 6G Enabled Robot Swarms**
+> **Embodied Intelligence for 6G Enabled Robot Swarms**
 
 ---
 
-## 🚀 Project Overview
+## 🔬 Research Motivation
 
-This project simulates a group of agents moving in a 2D environment.
+Future autonomous robot swarms operating in **6G-enabled environments** will rely on:
 
-Agents:
-- explore the environment
-- discover a target
-- communicate with nearby agents
-- coordinate under communication constraints
+- ultra-low latency communication  
+- reliable information exchange  
+- distributed decision-making  
 
-The goal is to understand how **network limitations** impact swarm intelligence.
+However, real-world networks are imperfect.
 
----
+This project investigates:
 
-## 🧠 Key Features
-
-### 1. Multi-Agent System
-Each agent has:
-- position (x, y)
-- movement direction
-- local communication ability
-- simple rule-based behaviour
+- How does **latency** affect information propagation?  
+- How does **packet loss** degrade coordination?  
+- How does **limited communication range** fragment a swarm?  
+- What is the impact on **coverage and task completion**?  
 
 ---
 
-### 2. Communication Model
+## 🧠 Methodology
 
-Agents communicate only within a fixed radius.
+We model a **decentralised multi-agent system** in a 2D environment.
 
-The network simulates:
+Each agent:
+- moves using simple stochastic motion  
+- detects neighbours within a fixed radius  
+- exchanges local messages  
+- updates behaviour based on received information  
+
+---
+
+### 📡 Communication Model
+
+The communication layer explicitly simulates:
+
 - **Latency** → delayed message delivery  
-- **Packet Loss** → messages randomly dropped  
-- **Limited Range** → only nearby agents communicate  
+- **Packet Loss** → probabilistic message dropping  
+- **Communication Radius** → spatially constrained interaction  
+
+This creates a realistic approximation of **imperfect wireless networks**
 
 ---
 
-### 3. Task Behaviour
+### 🎯 Task Definition
 
-Agents begin without knowledge of the target.
+Agents must:
 
-When an agent discovers the target:
-- it becomes **informed**
-- it shares information with neighbours
-- other agents gradually become informed and move toward the target
+1. explore the environment  
+2. discover a target  
+3. propagate information  
+4. coordinate movement toward the target  
 
-This creates **decentralised coordination**
-
----
-
-### 4. Evaluation Metrics
-
-The system measures:
-
-- **Coverage** → how much of the environment is explored  
-- **Time to Completion** → how long it takes to reach the target  
-- **Coordination Efficiency** → success of information spreading  
-- **Signal Reach** → number of agents informed  
-- **Communication Stats**:
-  - messages sent
-  - delivered
-  - dropped  
+This models **distributed sensing and coordination**
 
 ---
 
-### 5. Experiments
+## 📊 Evaluation Metrics
+
+We evaluate system performance using:
+
+- **Coverage** → proportion of environment explored  
+- **Time to Completion** → steps required to reach target  
+- **Information Spread** → number of informed agents  
+- **Communication Efficiency** →  
+  - messages sent  
+  - messages delivered  
+  - messages dropped  
+
+---
+
+## 🧪 Experimental Design
 
 We compare multiple network conditions:
 
-- Baseline (no constraints)
-- High latency
-- High packet loss
-- Combined constraints
+- Baseline (ideal communication)  
+- High latency  
+- High packet loss  
+- Combined constraints  
 
-Each experiment runs multiple times using different random seeds.
+Each scenario is evaluated across multiple random seeds to ensure robustness.
 
 ---
 
-## 📊 Visual Results
+## 📊 Visual Analysis
 
-### 🔹 Exploration Stage
+### 🔹 Exploration Phase
 
-Agents initially explore the environment with no shared knowledge.
+Agents initially explore independently without shared knowledge.
 
 ![Exploration](images/exploration.png)
 
 ---
 
-### 🔹 Information Spread
+### 🔹 Information Propagation
 
-Information about the target propagates through local communication links.
+Information about the target spreads through local communication links.
 
-Edges represent communication between agents.
+Edges represent **agent-to-agent message exchange**.
 
 ![Information Spread](images/information_spread.png)
 
 ---
 
-### 🔹 Target Convergence
+### 🔹 Coordinated Convergence
 
-Informed agents coordinate and converge toward the target location.
+Informed agents collectively converge toward the target location.
+
+This demonstrates emergent **swarm coordination**.
 
 ![Target Convergence](images/target_convergence.png)
 
@@ -115,9 +121,32 @@ Informed agents coordinate and converge toward the target location.
 
 ### 🔹 Coverage Heatmap
 
-The heatmap shows how much of the environment has been explored over time.
+The heatmap visualises spatial exploration over time.
 
-![Coverage](images/coverage_heatmap.png)
+![Coverage Heatmap](images/coverage_heatmap.png)
+
+---
+
+## 🧩 Key Insights
+
+- Communication constraints significantly affect coordination speed  
+- Packet loss reduces effective information propagation  
+- Latency delays collective behaviour emergence  
+- Local communication leads to **decentralised intelligence**  
+
+---
+
+## ⚙️ How to Run
+
+```bash
+pip install -r requirements.txt
+python main.py
+```
+
+Choose:
+
+- `1` → Run experiments  
+- `2` → Run visual simulation  
 
 ---
 
@@ -125,7 +154,6 @@ The heatmap shows how much of the environment has been explored over time.
 
 ```
 Swarm-6G-Mini-Project/
-│
 ├── agents.py
 ├── network.py
 ├── simulation.py
@@ -135,79 +163,30 @@ Swarm-6G-Mini-Project/
 ├── main.py
 ├── README.md
 ├── requirements.txt
-│
 ├── images/
-│   ├── exploration.png
-│   ├── information_spread.png
-│   ├── target_convergence.png
-│   ├── coverage_heatmap.png
-│
 ├── results/
 ```
 
 ---
 
-## ⚙️ How to Run
+## 🚀 Future Work
 
-### 1. Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
----
-
-### 2. Run the project
-
-```bash
-python main.py
-```
+- Reinforcement learning-based agent behaviour  
+- Adaptive communication strategies  
+- Dynamic network topology modelling  
+- Integration with real robotic systems  
+- Scaling to large swarm sizes  
 
 ---
 
-### 3. Choose mode
+## 📌 Conclusion
 
-- `1` → Run experiments  
-- `2` → Run visual simulation  
+This project demonstrates how simple agents can achieve:
 
----
+- decentralised coordination  
+- adaptive behaviour under constraints  
+- emergent swarm intelligence  
 
-## 🔬 Research Motivation
+It provides a strong foundation for research in:
 
-Future robot swarms operating in **6G-enabled environments** will depend on:
-
-- reliable communication  
-- low latency  
-- efficient coordination  
-
-This project explores how:
-
-- latency affects information propagation  
-- packet loss reduces coordination  
-- communication range limits swarm efficiency  
-
----
-
-## 🧩 Future Improvements
-
-- Evolutionary optimisation of agent behaviour  
-- Smarter coordination strategies  
-- Reinforcement learning-based agents  
-- Real-time performance dashboards  
-- Advanced network models  
-
----
-
-## 📌 Summary
-
-This project demonstrates how simple agents can:
-
-- coordinate using local communication  
-- adapt to unreliable networks  
-- exhibit swarm intelligence  
-
-It provides a foundation for research in:
-
-> **6G-enabled distributed robotic systems and embodied intelligence**
-
----
+> **Distributed AI systems and 6G-enabled robotic swarms**
