@@ -1,152 +1,222 @@
 # Swarm-6G Mini Project
 
-A simulation-based study of **multi-agent coordination under communication constraints**, designed as a foundational step toward research in:
+## 🧠 Overview
 
-> **Embodied Intelligence for 6G Enabled Robot Swarms**
+This project presents a **multi-agent swarm simulation framework** designed to study coordination, communication, and convergence under constrained network conditions.
 
----
+The system models a group of distributed agents operating in a 2D environment, where information about a target location spreads through **local communication links**. Agents initially have no global knowledge and must rely on **peer-to-peer interactions** to coordinate.
 
-## 🔬 Research Motivation
-
-Future autonomous robot swarms operating in **6G-enabled environments** will rely on:
-
-- ultra-low latency communication  
-- reliable information exchange  
-- distributed decision-making  
-
-However, real-world networks are imperfect.
-
-This project investigates:
-
-- How does **latency** affect information propagation?  
-- How does **packet loss** degrade coordination?  
-- How does **limited communication range** fragment a swarm?  
-- What is the impact on **coverage and task completion**?  
+The project explores how **network constraints such as latency and packet loss affect collective intelligence and system performance**, with inspiration drawn from emerging **6G communication environments** and distributed edge systems.
 
 ---
 
-## 🧠 Methodology
+## 🎯 Research Objective
 
-We model a **decentralised multi-agent system** in a 2D environment.
+The goal of this project is to investigate:
 
-Each agent:
-- moves using simple stochastic motion  
-- detects neighbours within a fixed radius  
-- exchanges local messages  
-- updates behaviour based on received information  
+* How communication constraints impact coordination in multi-agent systems
+* How information propagates across decentralized networks
+* How system performance changes under varying latency and packet loss conditions
 
----
-
-### 📡 Communication Model
-
-The communication layer explicitly simulates:
-
-- **Latency** → delayed message delivery  
-- **Packet Loss** → probabilistic message dropping  
-- **Communication Radius** → spatially constrained interaction  
-
-This creates a realistic approximation of **imperfect wireless networks**
+This project serves as an **early-stage research prototype** for studying distributed intelligence in communication-constrained environments.
 
 ---
 
-### 🎯 Task Definition
+## ⚙️ System Architecture
 
-Agents must:
+The system extends beyond a standalone simulation by integrating API access and automation tools.
 
-1. explore the environment  
-2. discover a target  
-3. propagate information  
-4. coordinate movement toward the target  
+### Architecture Overview
 
-This models **distributed sensing and coordination**
+```
+Make (Automation Platform)
+        ↓
+HTTP Request
+        ↓
+ngrok (Secure Tunnel)
+        ↓
+Flask API (/run endpoint)
+        ↓
+Simulation Engine
+        ↓
+Results (CSV + Visualisations)
+```
+
+---
+
+## 🔧 Components
+
+### 1. Simulation Engine
+
+* Models agent movement and communication
+* Supports configurable parameters:
+
+  * number of agents
+  * communication radius
+  * latency
+  * packet loss
+* Implements local information sharing and coordination dynamics
+
+---
+
+### 2. Visualisation Module
+
+* Real-time swarm animation using matplotlib
+* Displays:
+
+  * agent movement
+  * communication links
+  * target convergence
+* Provides insight into system dynamics during execution
+
+---
+
+### 3. Experiment Framework
+
+* Runs multiple simulations under different network conditions
+* Generates structured outputs:
+
+  * `experiment_results.csv`
+  * performance plots
+
+---
+
+### 4. API Layer (Flask)
+
+* Exposes a `/run` endpoint for remote execution
+* Allows experiments to be triggered programmatically
+* Enables integration with external systems
+
+---
+
+### 5. Automation Integration (Make + ngrok)
+
+* Make sends HTTP requests to trigger experiments
+* ngrok exposes the local Flask server to the internet
+* Enables automated and repeatable experiment execution
 
 ---
 
 ## 📊 Evaluation Metrics
 
-We evaluate system performance using:
+The system evaluates swarm performance using:
 
-- **Coverage** → proportion of environment explored  
-- **Time to Completion** → steps required to reach target  
-- **Information Spread** → number of informed agents  
-- **Communication Efficiency** →  
-  - messages sent  
-  - messages delivered  
-  - messages dropped  
+* **Coverage** – proportion of environment explored
+* **Time to Completion** – steps required to reach target
+* **Coordination Efficiency** – effectiveness of information spread
+* **Signal Reach** – number of informed agents
+* **Communication Statistics**
 
----
-
-## 🧪 Experimental Design
-
-We compare multiple network conditions:
-
-- Baseline (ideal communication)  
-- High latency  
-- High packet loss  
-- Combined constraints  
-
-Each scenario is evaluated across multiple random seeds to ensure robustness.
+  * messages sent
+  * messages delivered
+  * messages dropped
 
 ---
 
-## 📊 Visual Analysis
+## 🧪 Experimental Setup
 
-### 🔹 Exploration Phase
+Experiments are conducted under varying network conditions:
 
-Agents initially explore independently without shared knowledge.
+* Baseline (no constraints)
+* High latency
+* High packet loss
+* Combined constraints
+
+Each experiment runs multiple simulations to observe system behaviour across scenarios.
+
+---
+
+## 📈 Results
+
+Example outputs generated by the system:
+
+* `experiment_results.csv` – structured performance data
+* `coverage_plot.png` – exploration coverage over time
+* `coordination_plot.png` – coordination efficiency
+* `signals_plot.png` – communication dynamics
+* `time_plot.png` – convergence performance
+
+---
+
+## 🖼️ Visual Results
+
+### Exploration Stage
 
 ![Exploration](images/exploration.png)
 
----
-
-### 🔹 Information Propagation
-
-Information about the target spreads through local communication links.
-
-Edges represent **agent-to-agent message exchange**.
+### Information Spread
 
 ![Information Spread](images/information_spread.png)
 
----
-
-### 🔹 Coordinated Convergence
-
-Informed agents collectively converge toward the target location.
-
-This demonstrates emergent **swarm coordination**.
+### Target Convergence
 
 ![Target Convergence](images/target_convergence.png)
 
----
+### Coverage Heatmap
 
-### 🔹 Coverage Heatmap
-
-The heatmap visualises spatial exploration over time.
-
-![Coverage Heatmap](images/coverage_heatmap.png)
+![Coverage](images/coverage_heatmap.png)
 
 ---
 
-## 🧩 Key Insights
+## ▶️ Usage
 
-- Communication constraints significantly affect coordination speed  
-- Packet loss reduces effective information propagation  
-- Latency delays collective behaviour emergence  
-- Local communication leads to **decentralised intelligence**  
-
----
-
-## ⚙️ How to Run
+### Run Simulation Locally
 
 ```bash
-pip install -r requirements.txt
 python main.py
 ```
 
-Choose:
+---
 
-- `1` → Run experiments  
-- `2` → Run visual simulation  
+### Run Experiments via API
+
+1. Start Flask server:
+
+```bash
+python api_server.py
+```
+
+2. Start ngrok:
+
+```bash
+ngrok http 5000
+```
+
+3. Trigger simulation:
+
+```bash
+GET https://<your-ngrok-url>/run
+```
+
+This will:
+
+* execute experiments
+* generate results
+* save outputs automatically
+
+---
+
+## 🔬 Research Significance
+
+This project demonstrates how decentralized agents can coordinate under realistic communication constraints, providing insights relevant to:
+
+* distributed AI systems
+* swarm intelligence
+* edge computing
+* future 6G communication networks
+
+The system also introduces **automation-driven experimentation**, enabling scalable and reproducible research workflows.
+
+---
+
+## 🚀 Future Work
+
+This prototype provides a foundation for further research, including:
+
+* adaptive agent behaviours
+* learning-based coordination strategies
+* integration with realistic network models
+* extension toward 6G-aligned communication environments
 
 ---
 
@@ -154,39 +224,26 @@ Choose:
 
 ```
 Swarm-6G-Mini-Project/
+│
 ├── agents.py
 ├── network.py
 ├── simulation.py
-├── metrics.py
-├── experiments.py
 ├── visualization.py
+├── experiments.py
 ├── main.py
-├── README.md
-├── requirements.txt
+├── api_server.py
+├── metrics.py
+│
 ├── images/
 ├── results/
+│
+└── README.md
 ```
 
 ---
 
-## 🚀 Future Work
+## 👨‍💻 Author
 
-- Reinforcement learning-based agent behaviour  
-- Adaptive communication strategies  
-- Dynamic network topology modelling  
-- Integration with real robotic systems  
-- Scaling to large swarm sizes  
+Seun Oseola
 
 ---
-
-## 📌 Conclusion
-
-This project demonstrates how simple agents can achieve:
-
-- decentralised coordination  
-- adaptive behaviour under constraints  
-- emergent swarm intelligence  
-
-It provides a strong foundation for research in:
-
-> **Distributed AI systems and 6G-enabled robotic swarms**
