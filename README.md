@@ -1,249 +1,104 @@
-# Swarm-6G Mini Project
+# Swarm-6G Mini Project – Communication-Constrained Multi-Agent Coordination
 
-## 🧠 Overview
+## Short Overview
+This project presents a simulation framework for studying coordination dynamics in multi‑agent systems operating under communication constraints. It investigates how latency, packet loss and limited communication range influence information propagation, collective behaviour and convergence in distributed agent networks. The work is motivated by emerging challenges in 6G‑enabled systems, autonomous swarms and edge intelligence, where coordination must be achieved despite imperfect communication.
 
-This project presents a **multi-agent swarm simulation framework** designed to study coordination, communication, and convergence under constrained network conditions.
+## Background and Motivation
+In distributed autonomous systems such as drone swarms, robotic collectives and large‑scale sensor networks, coordination depends on reliable information exchange between agents. Real‑world communication channels, however, are inherently constrained by latency, packet loss and limited connectivity. While idealised models assume perfect communication, there is a lack of accessible frameworks for systematically analysing how these constraints affect system‑level behaviour. This project explores that gap by providing a controlled simulation environment for analysing communication‑aware coordination.
 
-The system models a group of distributed agents operating in a 2D environment, where information about a target location spreads through **local communication links**. Agents initially have no global knowledge and must rely on **peer-to-peer interactions** to coordinate.
+## Project Objective
+The objective of this project is to model and analyse how communication constraints impact coordination efficiency, convergence behaviour and information dissemination in multi‑agent systems. The framework enables systematic experimentation with network parameters, linking observable simulation behaviour to underlying communication structure.
 
-The project explores how **network constraints such as latency and packet loss affect collective intelligence and system performance**, with inspiration drawn from emerging **6G communication environments** and distributed edge systems.
+## Key Features
+- **Parametrised communication conditions:** The simulation models latency, packet loss and communication radius separately and in combination, enabling fine‑grained exploration of their individual and joint impacts on coordination.
+- **Decentralised agents:** Agents operate with no global state, coordinating through local interactions and peer‑to‑peer communication.
+- **Exploration and convergence tasks:** Agents search for a target and converge once detection occurs, allowing analysis of both information dissemination and collective movement.
+- **Visualisation of dynamics:** The framework generates visual outputs showing exploration patterns, information propagation, convergence over time and spatial coverage.
+- **Measurable outcomes:** The simulation records convergence time, communication overhead and other metrics that quantify system performance under different conditions.
 
----
+## Tools and Technologies
+- **Python** for simulation development and agent‑based modelling  
+- **NumPy** and **SciPy** for numerical computation  
+- **Matplotlib** for visualising system dynamics and generating plots  
+- **Graph‑theoretic analysis:** Concepts such as algebraic connectivity (Fiedler eigenvalue) provide a theoretical lens for interpreting simulation results.
 
-## 🎯 Research Objective
+## Methodology
+1. Define the agent population, environment size and initial conditions.  
+2. Parameterise the communication model with latency, packet loss and radius values.  
+3. Run simulations of agent exploration, information exchange and convergence.  
+4. Track information propagation and measure coordination performance under varied conditions.  
+5. Analyse system‑level dynamics and interpret results using graph theory.  
+6. Visualise outcomes to aid understanding of coordination patterns.
 
-The goal of this project is to investigate:
+## Key Findings
+Simulation results demonstrate that increasing latency and packet loss significantly degrade coordination efficiency. Information propagation becomes fragmented, leading to delayed or incomplete convergence. Reduced communication radius limits the reach of information flow, further slowing convergence. These findings reinforce the importance of communication‑aware design in distributed intelligent systems and highlight threshold effects where small parameter changes yield qualitatively different outcomes.
 
-* How communication constraints impact coordination in multi-agent systems
-* How information propagates across decentralized networks
-* How system performance changes under varying latency and packet loss conditions
+## Practical Impact
+Understanding how communication constraints shape collective behaviour has real‑world value beyond academic interest. The insights gained here can inform the design of resilient autonomous swarms and distributed AI systems used in search‑and‑rescue, environmental monitoring, logistics and smart infrastructure. By linking simulation results to graph‑theoretic measures, the research identifies conditions under which coordination breaks down and suggests strategies for maintaining robustness in future 6G and edge‑intelligence deployments.
 
-This project serves as an **early-stage research prototype** for studying distributed intelligence in communication-constrained environments.
+## Research and Practical Implications
+This work bridges theory and application: it contributes to consensus and cooperation theory by quantifying the effects of communication parameters, and it offers a reusable computational framework for further research. The same framework can support investigations into 6G‑enabled autonomous systems, edge intelligence and swarm robotics, providing a testbed for evaluating communication‑aware algorithms.
 
----
+## Visual Results
 
-## ⚙️ System Architecture
+<p align="center">
+  <img src="images/exploration.png" width="800"/>
+</p>
+Exploration dynamics illustrating agent movement under decentralised control.
 
-The system extends beyond a standalone simulation by integrating API access and automation tools.
+<p align="center">
+  <img src="images/information_spread.png" width="800"/>
+</p>
+Information propagation across the communication network.
 
-### Architecture Overview
+<p align="center">
+  <img src="images/target_convergence.png" width="800"/>
+</p>
+Emergence of coordinated convergence following target detection.
+
+<p align="center">
+  <img src="images/coverage_heatmap.png" width="800"/>
+</p>
+Spatial coverage distribution of agent activity.
+
+## Project Structure
 
 ```
-Make (Automation Platform)
-        ↓
-HTTP Request
-        ↓
-ngrok (Secure Tunnel)
-        ↓
-Flask API (/run endpoint)
-        ↓
-Simulation Engine
-        ↓
-Results (CSV + Visualisations)
-```
+├── agents.py
+├── experiments.py
+├── main.py
+├── metrics.py
+├── network.py
+├── simulation.py
+├── visualization.py
+├── images/
+│   ├── exploration.png
+│   ├── information_spread.png
+│   ├── target_convergence.png
+│   └── coverage_heatmap.png
+├── results/
+└── README.md````
 
----
+## How to Run
 
-## 🔧 Components
+Install dependencies:
 
-### 1. Simulation Engine
-
-* Models agent movement and communication
-* Supports configurable parameters:
-
-  * number of agents
-  * communication radius
-  * latency
-  * packet loss
-* Implements local information sharing and coordination dynamics
-
----
-
-### 2. Visualisation Module
-
-* Real-time swarm animation using matplotlib
-* Displays:
-
-  * agent movement
-  * communication links
-  * target convergence
-* Provides insight into system dynamics during execution
-
----
-
-### 3. Experiment Framework
-
-* Runs multiple simulations under different network conditions
-* Generates structured outputs:
-
-  * `experiment_results.csv`
-  * performance plots
-
----
-
-### 4. API Layer (Flask)
-
-* Exposes a `/run` endpoint for remote execution
-* Allows experiments to be triggered programmatically
-* Enables integration with external systems
-
----
-
-### 5. Automation Integration (Make + ngrok)
-
-* Make sends HTTP requests to trigger experiments
-* ngrok exposes the local Flask server to the internet
-* Enables automated and repeatable experiment execution
-
----
-
-## 📊 Evaluation Metrics
-
-The system evaluates swarm performance using:
-
-* **Coverage** – proportion of environment explored
-* **Time to Completion** – steps required to reach target
-* **Coordination Efficiency** – effectiveness of information spread
-* **Signal Reach** – number of informed agents
-* **Communication Statistics**
-
-  * messages sent
-  * messages delivered
-  * messages dropped
-
----
-
-## 🧪 Experimental Setup
-
-Experiments are conducted under varying network conditions:
-
-* Baseline (no constraints)
-* High latency
-* High packet loss
-* Combined constraints
-
-Each experiment runs multiple simulations to observe system behaviour across scenarios.
-
----
-
-## 📈 Results
-
-Example outputs generated by the system:
-
-* `experiment_results.csv` – structured performance data
-* `coverage_plot.png` – exploration coverage over time
-* `coordination_plot.png` – coordination efficiency
-* `signals_plot.png` – communication dynamics
-* `time_plot.png` – convergence performance
-
----
-
-## 🖼️ Visual Results
-
-### Exploration Stage
-
-![Exploration](images/exploration.png)
-
-### Information Spread
-
-![Information Spread](images/information_spread.png)
-
-### Target Convergence
-
-![Target Convergence](images/target_convergence.png)
-
-### Coverage Heatmap
-
-![Coverage](images/coverage_heatmap.png)
-
----
-
-## ▶️ Usage
-
-### Run Simulation Locally
+```bash
+pip install -r requirements.txt
+````
+Run a default simulation:
 
 ```bash
 python main.py
 ```
 
----
-
-### Run Experiments via API
-
-1. Start Flask server:
+Run a simulation with custom parameters (e.g., 20 agents, 50ms latency, 10% packet loss):
 
 ```bash
-python api_server.py
+python experiments.py --agents 20 --latency 50 --loss 0.1
 ```
 
-2. Start ngrok:
-
-```bash
-ngrok http 5000
-```
-
-3. Trigger simulation:
-
-```bash
-GET https://<your-ngrok-url>/run
-```
-
-This will:
-
-* execute experiments
-* generate results
-* save outputs automatically
-
----
-
-## 🔬 Research Significance
-
-This project demonstrates how decentralized agents can coordinate under realistic communication constraints, providing insights relevant to:
-
-* distributed AI systems
-* swarm intelligence
-* edge computing
-* future 6G communication networks
-
-The system also introduces **automation-driven experimentation**, enabling scalable and reproducible research workflows.
-
----
-
-## 🚀 Future Work
-
-This prototype provides a foundation for further research, including:
-
-* adaptive agent behaviours
-* learning-based coordination strategies
-* integration with realistic network models
-* extension toward 6G-aligned communication environments
-
----
-
-## 📁 Project Structure
-
-```
-Swarm-6G-Mini-Project/
-│
-├── agents.py
-├── network.py
-├── simulation.py
-├── visualization.py
-├── experiments.py
-├── main.py
-├── api_server.py
-├── metrics.py
-│
-├── images/
-├── results/
-│
-└── README.md
-```
-
----
-
-## 👨‍💻 Author
-
-Seun Oseola
-
----
+## Future Work
+- Incorporate heterogeneous and dynamic communication models and explore adaptive or learning‑based coordination strategies.  
+- Extend simulations to 3D environments and include real‑world constraints such as sensor noise and limited battery life.  
+- Investigate the influence of network topology properties on coordination robustness and develop guidelines for designing resilient agent networks.
